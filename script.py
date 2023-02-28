@@ -32,7 +32,7 @@ def translate_html(html_directory):
         e = e.replace('.', '. ')
         if e == "\n":
             continue
-        if e=='' or e=='.' or e=='•' or e=='. ' or e==":" or e=="/":
+        if e=='' or e=='.' or e=='•' or e=='. ' or e==":" or e=="/" or e=='!' or e==')' or e=='(' or e=='|':
             continue 
         try:
             new=replace_quotes(e)
@@ -70,7 +70,7 @@ def translate_html(html_directory):
         else:
             return comment
     def replace_kamek(comment,e,i):
-        # print(e,i,"ooooooooooooooooooo")
+        print(e,i,"ooooooooooooooooooo")
         fixed_text = comment.replace(e, i)
         comment.replace_with(fixed_text)
         return comment
@@ -185,7 +185,7 @@ def translate_html(html_directory):
 
 # # list to store txt files
 # res = []
-translate_html('E:/Coding Allstars/classcentral.github.io/institution/amazon.html')
+translate_html('E:/Coding Allstars/classcentral.github.io/help/moocs.html')
 # E:/Coding Allstars/classcentral.github.io/institution/amazon.html
 # os.walk() returns subdirectories, file from current directory and 
 # And follow next directory from subdirectory list recursively until last directory
