@@ -9,12 +9,15 @@ import urllib.request
 import codecs
 from googletrans import Translator
 from bs4 import BeautifulSoup
+from deep_translator import GoogleTranslator
 def replace_quotes(e):
-        translator = Translator(service_urls=['translate.google.com'])
-        translator.raise_Exception = True
-        translated_text = translator.translate(e,dest='hi',src='en').text
-        print("--------------------------------------------",translated_text)
-        return  translated_text
+        translated = GoogleTranslator(source='auto', target='hindi').translate(e)
+        # translator = Translator(service_urls=['translate.google.com'])
+        # translator.raise_Exception = True
+        # # print(e)
+        # translated_text = translator.translate(e,dest='hi',src='en').text
+        # # print("--------------------------------------------")
+        return  translated
     
 def translate_html(html_directory):
     with codecs.open(html_directory, 'r', 'utf-8') as f:
@@ -24,13 +27,9 @@ def translate_html(html_directory):
     translated=[]
     origin=[]
     print('Translating....')
-                
+            
     for e in (soup.stripped_strings):
-        # e = e.replace('.', '. ')
-        # if e == "\n":
-        #     continue
-        if e=='':
-            continue 
+        e = e.replace('.', '. ')
         if e == "\n":
             continue
         if e=='' or e=='.' or e=='•' or e=='. ' or e==":" or e=="/":
@@ -38,9 +37,8 @@ def translate_html(html_directory):
         try:
             new=replace_quotes(e)
         except:
-            # print(e,"errrrrrrrrrrrr")
+            print(e,"errrrrrrrrrrrr")
             continue
-
         origin.append(e)
         translated.append(new)
 
@@ -50,7 +48,7 @@ def translate_html(html_directory):
     with codecs.open(html_directory, 'r', 'utf-8') as f:
         html = f.read()
     u=0
-    print(len(translated))
+    # print(len(translated))
     new = BeautifulSoup(html, 'html.parser')
     soup = BeautifulSoup(html, 'html.parser')
     # comments=[]
@@ -72,11 +70,13 @@ def translate_html(html_directory):
         else:
             return comment
     def replace_kamek(comment,e,i):
+        # print(e,i,"ooooooooooooooooooo")
         fixed_text = comment.replace(e, i)
         comment.replace_with(fixed_text)
         return comment
 
     def replace_kamek2(comment,e,i):
+        # print(e,i)
         fixed_text = comment.replace(e, i)
         comment.string.replace_with(fixed_text)
         return comment
@@ -87,6 +87,7 @@ def translate_html(html_directory):
             infile.write(soup.prettify())
     print("Replacing")
     for e,i in zip(origin,translated):
+        # print(e,i)
     ###################################3 tmmm m3ada sign upp
         # comment = soup.find(string=re.compile(e))
         # f = new.find_all(string=re.compile(e))
@@ -141,8 +142,11 @@ def translate_html(html_directory):
         script.decompose() 
     for e,i in zip(origin,translated):
     
-    ###############################################   
-        comment = soup.find(string=re.compile(e))
+    ###############################################
+        try:
+            comment = soup.find(string=re.compile(e))
+        except:
+            continue
         f = new.find_all(string=re.compile(e))
     
         comment = return_comment(comment,f)
@@ -160,10 +164,10 @@ def translate_html(html_directory):
 
 
 #to get the current working directory
-directory = os.getcwd()
+# directory = os.getcwd()
 # print(directory)
 
-# dir_path = os.path.join(directory,'**\*.html')
+# # dir_path = os.path.join(directory,'**\*.html')
 # dir_path = '**\*.html'
 # print(dir_path)
 # i=1
@@ -179,52 +183,15 @@ directory = os.getcwd()
 
 # import os
 
-# list to store txt files
-res = []
+# # list to store txt files
+# res = []
+translate_html('E:/Coding Allstars/classcentral.github.io/institution/amazon.html')
+# E:/Coding Allstars/classcentral.github.io/institution/amazon.html
 # os.walk() returns subdirectories, file from current directory and 
 # And follow next directory from subdirectory list recursively until last directory
-for root, dirs, files in os.walk(directory):
-    for file in files:
-        if file.endswith(".html"):
-            res.append(os.path.join(root, file))
-print(res)
-print(len(res))
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-res.pop(0)
-
-# for file in res:
-#     print(file)
-#     translate_html(file)
-translate_html('E:\Coding Allstars\www.classcentral.com\subject\cybersecurity.html')
-# E:\Coding Allstars\www.classcentral.com\subject\cs.html
-# E:\Coding Allstars\www.classcentral.com\subject\cybersecurity.html
-# E:\Coding Allstars\www.classcentral.com\subject\health.html
-# E:\Coding Allstars\www.classcentral.com\report\2022-year-in-review\index.html
-# E:\Coding Allstars\www.classcentral.com\report\class-central-ddos-attack\index.html
-# E:\Coding Allstars\www.classcentral.com\report\cs50-free-certificate\index.html
-# E:\Coding Allstars\www.classcentral.com\report\india-online-degrees\index.html
-# E:\Coding Allstars\www.classcentral.com\subject\law.html
-# E:\Coding Allstars\www.classcentral.com\subject\psychology.html
-# E:\Coding Allstars\www.classcentral.com\subject\web-development.html
+# for root, dirs, files in os.walk(directory):
+#     for file in files:
+#         if file.endswith(".html"):
+#             res.append(os.path.join(root, file))
+# print(res)
+# print(len(res))
