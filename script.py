@@ -185,7 +185,7 @@ def translate_html(html_directory):
 
 # # list to store txt files
 # res = []
-translate_html('E:/Coding Allstars/classcentral.github.io/help/moocs.html')
+translate_html('E:/Coding Allstars/classcentral.github.io/report/category/best-courses/index.html')
 # E:/Coding Allstars/classcentral.github.io/institution/amazon.html
 # os.walk() returns subdirectories, file from current directory and 
 # And follow next directory from subdirectory list recursively until last directory
